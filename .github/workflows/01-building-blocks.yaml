@@ -1,7 +1,8 @@
-# File runs in GitHub if it is in .github/workflows directory
+# File runs in GitHub Actions if it is in .github/workflows directory
+# Mains structure = Workflow, Jobs, Steps
 name: 01 - Building Blocks    # Name of workflow
 on:
-  - push                      # Run on push
+  #- push                      # Run on push
   - workflow_dispatch         # Run on demand
 jobs:                         # Jobs run in parallel by default
   echo-hello:
@@ -18,6 +19,7 @@ jobs:                         # Jobs run in parallel by default
           echo "a multi-line"
           echo "script."
           exit 0
+        # A Non Zero code will fail the step
       - name: Say goodbye
         run: echo "Goodbye!"
 
