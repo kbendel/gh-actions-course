@@ -4,7 +4,7 @@ on:
     #- pull_request  # feature branch
     #- workflow_dispatch
     schedule:
-    - cron: '*/1 * * * *'   # https://crontab.cronhub.io/
+    - cron: '* * * * *'   # Every minute https://crontab.cronhub.io/
 jobs:
     echo:
         runs-on: ubuntu-latest
