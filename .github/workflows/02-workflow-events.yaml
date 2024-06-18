@@ -2,8 +2,9 @@ name: 02 - Workflow Events
 on: 
     #- push
     #- pull_request  # feature branch
-    # - schedule
-    - workflow_dispatch
+    #- workflow_dispatch
+    schedule:
+    - cron: '*/1 * * * *'
 jobs:
     echo:
         runs-on: ubuntu-latest
