@@ -2,9 +2,9 @@ name: 02 - Workflow Events
 on: 
     #- push
     #- pull_request  # feature branch
-    #- workflow_dispatch
-    schedule:
-    - cron: '* * * * *'   # Every minute https://crontab.cronhub.io/
+    - workflow_dispatch
+    #schedule:  # Can't seem to get cron job working
+    #- cron: '* * * * *'   # Every minute https://crontab.cronhub.io/
 jobs:
     echo:
         runs-on: ubuntu-latest
