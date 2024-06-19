@@ -3,6 +3,10 @@ on: push
 jobs:
     build:
         runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: 04-using-actions/udemygithubcourse
+
         # checkout code from repository
         # install dependencies
         # run automated tests
@@ -15,4 +19,5 @@ jobs:
                 node-version: '20.x'
             - name: Install Depedencies
               run: npm ci
-              working-directory: 04-using-actions/udemygithubcourse
+            - name: Run Unit Tests
+              run: npm run test
