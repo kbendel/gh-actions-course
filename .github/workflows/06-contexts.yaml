@@ -40,3 +40,11 @@ jobs:
                   echo "Workflow env: ${{env.MY_WORKFLOW_VAR}}
                   echo "Overwritten env: ${{env.MY_OVERWRITTEN_VAR}}
                   echo "Other syntax: $MY_OVERWRITTEN_VAR" 
+            - name: Compare Test setup
+              id: files
+              uses: jitterbit/get-changed-files@v1
+            - name: Compare Test run
+              run: |
+                  for changed_file in ${{ steps.files.outputs.all }}; do
+                  echo "Do something with this ${changed_file}."
+                  done
