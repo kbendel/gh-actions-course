@@ -18,6 +18,7 @@ jobs:
             - name: echo
               run: echo " Running whenever a PR is opened or synchronized AND base branch is main"
             - name: Retrieve Variable
-              run: echo "${{env.MY_VAR}}"
+              run: |
+                  echo "Variable Value: ${{vars.MY_VAR}}"
             - name: File Test
               run : echo "hello git diff --name-only ${{ github.sha }}~1 ${{ github.sha }}  "
