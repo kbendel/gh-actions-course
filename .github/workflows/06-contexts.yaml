@@ -1,0 +1,23 @@
+name: 06 - Contexts
+on:
+    push:
+    workflow_dispatch:
+jobs:
+    echo-data:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Display Information
+              run: |
+                echo "Event name: ${{github.event_name}}"
+                echo "Ref: ${{github.ref}}"
+                echo "SHA ${{github.sha}}"
+                echo "Actor ${{github.actor}}"
+                echo "Workflow ${{github.workflow}}"
+                echo "Run Id: ${{github.run_id}}"
+                echo "Run number: ${{github.run_number}}"
+            - name: echo
+              run: echo " Running whenever a PR is opened or synchronized AND base branch is main"
+            - name: Retrieve Variable
+              run: echo "${{env.MY_VAR}}"
+            - name: File Test
+              run : echo "git diff --name-only ${{ github.sha }}~1 ${{ github.sha }}  "
