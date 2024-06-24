@@ -20,4 +20,4 @@ jobs:
             - name: Retrieve Variable
               run: echo "${{env.MY_VAR}}"
             - name: File Test
-              run : echo "git diff --name-only ${{ github.sha }}~1 ${{ github.sha }}  "
+              run : echo "hello git diff --name-only ${{ github.sha }}~1 ${{ github.sha }}  "
