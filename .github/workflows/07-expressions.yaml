@@ -1,7 +1,7 @@
 name: 07-expressions.yaml
 on:
   push:
-  workflow_distpatch:
+  workflow_dispatch:
     inputs:
       debug:
         type: boolean
@@ -16,8 +16,8 @@ jobs:
           echo "Triggered by: ${{github.event_name}}"
           echo "Branch: ${{github.action_ref}}"
           echo "Commit SHA: ${{github.sha}}"  
-      - name: [debug] Print when triggered from main
-        if: ${{inputs.debug}} == true && ${{github.action_ref}} == "main"
+      - name: '[debug] Print when triggered from main'
+        if: ${{inputs.debug}} && ${{github.action_ref}} == "main"
         run: echo "I was triggered from main"
       - name: Greeting
         run: echo "Hello, world"
