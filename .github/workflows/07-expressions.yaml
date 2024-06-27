@@ -17,7 +17,7 @@ jobs:
           echo "Branch: ${{github.action_ref}}"
           echo "Commit SHA: ${{github.sha}}"  
       - name: '[debug] Print when triggered from main'
-        if: ${{inputs.debug}} && ${{github.action_ref}} == "main"
+        if: ${{inputs.debug && github.ref == 'refs/heads/main'}}
         run: echo "I was triggered from main"
       - name: Greeting
         run: echo "Hello, world"
