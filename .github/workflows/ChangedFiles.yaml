@@ -15,13 +15,13 @@ jobs:                                # Jobs run in parallel by default
       - name: Find list of changed files
         id: changed_files
         run: |
-          COMMIT_RANGE="${{ github.event.before }}...${{ github.sha }}
+          COMMIT_RANGE="${{ github.event.before }}...${{ github.sha }}"
           CHANGED_FILES=$(git diff --name-only $COMMIT_RANGE)
           echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
           #git fetch origin
           #BASE_COMMIT=$(git merge-base HEAD origin/${{ github.ref_name }})
           #CHANGED_FILES=$(git diff --name-only $BASE_COMMIT HEAD)
-          echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
+          #echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
           #echo "CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)" >> $GITHUB_ENV
           #echo "CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})" >> $GITHUB_ENV
       - name: Display changed files
