@@ -15,41 +15,12 @@ jobs:                                # Jobs run in parallel by default
         with:
           fetch-depth: 0
       - name: Get changed files
-        id: changed-files
+        id: changed_files
         run: |
-            if ${{ github.event_name == 'pull_request' }}; then
-                echo "changed_files=$(git diff --name-only -r HEAD^1 HEAD | xargs)" >> $GITHUB_OUTPUT
-            else
-                echo "changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT
-            fi
+            echo "changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})" >> $GITHUB_OUTPUT
       - name: List changed files
         run: |
-            for file in ${{ steps.changed-files.outputs.changed_files }}; do
-                echo "$file was changed"
+            echo "Changed files for commit ${{ github.sha }}"
+            for file in ${{ steps.changed_files.outputs.changed_files }}; do
+                echo $file
             done
-            
-      #- name: Modified files
-      #  run: |
-      #    git fetch origin
-      #    git diff --name-only --diff-filter=d main~ main
-      #- name: Find list of changed files
-        #id: changed_files
-        #run: |
-          #git fetch origin        
-          #COMMIT_RANGE="${{ github.event.before }}...${{ github.sha }}"
-          #if [ "$COMMIT_RANGE" = "${{ github.sha }}" ]; then
-          #  CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r $COMMIT_RANGE)
-          #else
-          #  CHANGED_FILES=$(git diff --name-only $COMMIT_RANGE)
-          #fi
-          #echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
-          #git fetch origin
-          #BASE_COMMIT=$(git merge-base HEAD origin/${{ github.ref_name }})
-          #CHANGED_FILES=$(git diff --name-only $BASE_COMMIT HEAD)
-          #echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
-          #echo "CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)" >> $GITHUB_ENV
-          #echo "CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})" >> $GITHUB_ENV
-      - name: Display changed files
-        run: 
-          echo "Changed files for commit ${{ github.sha }}"
-          echo $CHANGED_FILES
