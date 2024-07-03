@@ -15,6 +15,7 @@ jobs:                                # Jobs run in parallel by default
       - name: Find list of changed files
         id: changed_files
         run: |
+          git fetch origin
           COMMIT_RANGE="${{ github.event.before }}...${{ github.sha }}"
           CHANGED_FILES=$(git diff --name-only $COMMIT_RANGE)
           echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
