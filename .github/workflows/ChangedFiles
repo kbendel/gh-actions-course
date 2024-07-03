@@ -1,0 +1,24 @@
+# File runs in GitHub Actions if it is in .github/workflows directory
+# Main structure = Workflow, Jobs, Steps
+name: Print Files Pushed             # Name of workflow
+on:
+  push:                              # Run on push
+    #branches:
+      #- KevinGitHubActionsTesting
+  workflow_dispatch:                 # Run on demand
+jobs:                                # Jobs run in parallel by default
+  list-changed-files:
+    runs-on: ubuntu-latest
+    steps:                          # Steps run sequentially
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Find list of changed files
+        id: changed_files
+        run: |
+          git fetch origin
+          #echo "CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)" >> $GITHUB_ENV
+          echo "CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})" >> $GITHUB_ENV
+      - name: Display changed files
+        run: 
+          echo "Changed files for commit ${{ github.sha }}"
+          echo $CHANGED_FILES
