@@ -15,9 +15,13 @@ jobs:                                # Jobs run in parallel by default
       - name: Find list of changed files
         id: changed_files
         run: |
-          git fetch origin
+          git fetch origin        
           COMMIT_RANGE="${{ github.event.before }}...${{ github.sha }}"
-          CHANGED_FILES=$(git diff --name-only $COMMIT_RANGE)
+          if [ "$COMMIT_RANGE = "${{ github.sha }}" ]; then
+            CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r $COMMIT_RANGE)
+          else
+            CHANGED_FILES=$(git diff --name-only $COMMIT_RANGE)
+          fi
           echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
           #git fetch origin
           #BASE_COMMIT=$(git merge-base HEAD origin/${{ github.ref_name }})
