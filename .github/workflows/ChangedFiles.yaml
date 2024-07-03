@@ -14,7 +14,7 @@ jobs:                                # Jobs run in parallel by default
         uses: actions/checkout@v4
       - name: Modified files
         run: |
-          git fetch origin main:main
+          git fetch origin
           git diff --name-only --diff-filter=d main~ main
       #- name: Find list of changed files
         #id: changed_files
