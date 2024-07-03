@@ -17,7 +17,7 @@ jobs:                                # Jobs run in parallel by default
         run: |
           git fetch origin        
           COMMIT_RANGE="${{ github.event.before }}...${{ github.sha }}"
-          if [ "$COMMIT_RANGE = "${{ github.sha }}" ]; then
+          if [ "$COMMIT_RANGE" = "${{ github.sha }}" ]; then
             CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r $COMMIT_RANGE)
           else
             CHANGED_FILES=$(git diff --name-only $COMMIT_RANGE)
