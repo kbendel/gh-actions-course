@@ -12,10 +12,26 @@ jobs:                                # Jobs run in parallel by default
     steps:                          # Steps run sequentially
       - name: Checkout repo
         uses: actions/checkout@v4
-      - name: Modified files
+        with:
+          fetch-depth: 0
+      - name: Get changed files
+        id: changed-files
         run: |
-          git fetch origin
-          git diff --name-only --diff-filter=d main~ main
+            if ${{ github.event_name == 'pull_request' }}; then
+                echo "changed_files=$(git diff --name-only -r HEAD^1 HEAD | xargs)" >> $GITHUB_OUTPUT
+            else
+                echo "changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT
+            fi
+      - name: List changed files
+        run: |
+            for file in ${{ steps.changed-files.outputs.changed_files }}; do
+                echo "$file was changed"
+            done
+            
+      #- name: Modified files
+      #  run: |
+      #    git fetch origin
+      #    git diff --name-only --diff-filter=d main~ main
       #- name: Find list of changed files
         #id: changed_files
         #run: |
